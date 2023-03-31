@@ -1,6 +1,6 @@
 function Validate(event)
 {
-    let validFname, validLname, validUsername, validPassword, ValidConfPassword, validQuestion, validAnswer = true ;
+    let validFname, validLname, validUsername, validPassword, validConfPassword, validQuestion, validAnswer = true ;
 
     let fname = $("[name='first_name']").val();
     let lname = $("[name='last_name']").val();
@@ -31,7 +31,7 @@ function Validate(event)
         }
     if(confirm_password != password){
             alert("Your Password needs to match with Confirm Password");
-            ValidConfPassword = false;
+            validConfPassword = false;
         }    
     if(question.replace(/^\s+|\s+$/gm,'') == ""){
             alert("You need to input a question for account recovery");
@@ -42,7 +42,7 @@ function Validate(event)
             validAnswer = false
         }
     
-    return (validFname && validLname && validUsername && validPassword && ValidConfPassword && validQuestion && validAnswer);
+    return (validFname && validLname && validUsername && validPassword && validConfPassword && validQuestion && validAnswer);
 }
 
 function MistakesFound()
