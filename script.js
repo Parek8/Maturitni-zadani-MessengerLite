@@ -1,51 +1,50 @@
 function Validate(event)
 {
-    let validFname, validLname, validUsername, validPassword, validConfPassword, validQuestion, validAnswer = true ;
+    let valid = true;
 
     let fname = $("[name='first_name']").val();
     let lname = $("[name='last_name']").val();
     let username = $("[name='username']").val();
-    //let password = $("[name='last_name']").val(); Dont know why this doesnt work on validation
-    let password = document.getElementById("myPsw").value;
+    let password = $("[name='password']").val();
     let confirm_password = $("[name='confirm_password']").val();
-    let email = $("[name='email']").val(); /*I have no idea if we will use it for validation, because of htmls automatic validation for email */
+    let email = $("[name='email']").val();  /* We have no idea if we will use it for validation, because of htmls automatic validation for email */
     let question = $("[name='question']").val();
     let answer = $("[name='answer']").val();
 
+    let message = "";
+
+
     if(fname == null || fname.replace(/^\s+|\s+$/gm,'') == ""){
-            alert("You need to input First Name");
-            validFname= false;    
+            message += "You need to input First Name\n";
         }
     if(lname == null || lname.replace(/^\s+|\s+$/gm,'') == ""){
-            alert("You need to input Last Name");
-            validLname = false;
+            message += "You need to input Last Name\n";
         }
     if(username.length < 8 || username.replace(/^\s+|\s+$/gm,'') == ""){
-            alert("Your Username needs to be atleast 8 characters long");
-            validUsername = false;
+            message += "Your Username needs to be atleast 8 characters long\n";
         }
-
     if(password.length < 8){
-            alert("Your Password needs to be atleast 8 characters long");
-            validPassword = false;
+            message += "Your Password needs to be atleast 8 characters long\n";
         }
     if(confirm_password != password){
-            alert("Your Password needs to match with Confirm Password");
-            validConfPassword = false;
+            message += "Your Password needs to match with Confirm Password\n";
         }    
     if(question.replace(/^\s+|\s+$/gm,'') == ""){
-            alert("You need to input a question for account recovery");
-            validQuestion = false;
+            message += "You need to input a question for account recovery\n";
         }
     if(answer.replace(/^\s+|\s+$/gm,'') == ""){
-            alert("You need to input an answer for account recovery");
-            validAnswer = false
+            message += "You need to input an answer for account recovery\n";
         }
-    
-    return (validFname && validLname && validUsername && validPassword && validConfPassword && validQuestion && validAnswer);
+
+    if(message != "" && message != null)
+    {
+        AlertMistakes(message);
+        valid = false;
+    }
+    return valid;
 }
 
-function MistakesFound()
+function AlertMistakes(message)
 {
-    alert("Mistake found!");
+    alert(message);
 }
