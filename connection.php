@@ -1,62 +1,14 @@
 <?php
-include("process-register.php");
-$connect = new mysqli("localhost", "management", "management123", "maturita");
+session_start();
 
-// Getting the user info
-$first_name = $_GET["first_name"];
-$last_name = $_GET["last_name"];
-$username = $_GET["username"];
-$password = $_GET["password"];
-$email = $_GET["email"];
-$question = $_GET["question"];
-$answer = $_GET["answer"];
-$description = $_GET["description"];
+$connect = new mysqli("localhost", "management", "management123", "maturita");
 
 if($connect->connect_errno || !$connect || $connect->connect_errno != 0 || $connect->connect_error)
 {
     die("There was an error connecting to the database!\nError: " . $connect -> connect_errno);
 }
 
-if(CheckUniqueness())
-{
-    AddToDatabase();
-}
-else
-{
-    echo "Email and/or username aren't unique!";
-    die();
-}
-
-
-// A function we'll use for returning email and username from database, so we can check if the email and username are both unique
-function CheckUniqueness()
-{
-    // "Importing" global variables
-    global $username;
-    global $email;
-    global $connect;
-    $unique = true;
-
-    $selectQuery = "SELECT username, email FROM users WHERE username='$username' OR email='$email';";
-    $results = $connect->query($selectQuery);
-
-    while($result = $results->fetch_assoc())
-    {
-        // One more checking just in case
-        if((!is_null($result['email']) || !empty($result['email']) || $result['email' == $email]) || (!is_null($result['username']) || !empty($result['username']) || $result['username' == $username]))
-        {
-            $unique = false;
-        }
-        else
-        {
-            
-        }
-    }
-    
-    return $unique;
-}
-
-// Solely for us to keep somewhere the MY_SQL query ^^
+// Solely for us to keep the MY_SQL query somewhere ^^
 function CreateNewDatabase()
 {
     $createQuery = "CREATE DATABASE IF NOT EXISTS maturita;

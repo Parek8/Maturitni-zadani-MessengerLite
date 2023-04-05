@@ -1,4 +1,16 @@
 <?php
+include("connection.php");
+include("variables.php");
+
+    if(CheckUniqueness())
+    {
+        AddToDatabase();
+    }
+    else
+    {
+        echo "Email and/or username aren't unique!";
+        die();
+    }
 
 function AddToDatabase()
 {
@@ -18,4 +30,29 @@ function AddToDatabase()
     $connect->query($insertQuery);
     header("Location: login.php");
 }
+
+// A function we'll use for returning email and username from database, so we can check if the email and username are both unique
+function CheckUniqueness()
+{
+    // "Importing" global variables
+    global $username;
+    global $email;
+    global $connect;
+    $unique = true;
+
+    $selectQuery = "SELECT username, email FROM users WHERE username='$username' OR email='$email';";
+    $results = $connect->query($selectQuery);
+
+    while($result = $results->fetch_assoc())
+    {
+        // One more checking just in case
+        if((!is_null($result['email']) || !empty($result['email']) || $result['email' == $email]) || (!is_null($result['username']) || !empty($result['username']) || $result['username' == $username]))
+        {
+            $unique = false;
+        }
+    }
+    
+    return $unique;
+}
+
 ?>

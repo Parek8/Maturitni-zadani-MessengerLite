@@ -1,4 +1,4 @@
-function Validate(event)
+function ValidateRegister()
 {
     let valid = true;
 
@@ -43,7 +43,19 @@ function Validate(event)
     }
     return valid;
 }
+function ValidateLogin()
+{
+    let username = $("[name='username']").val();
+    let password = $("[name='password']").val();
+    let message = "";
 
+    if(username.length < 8 || username.replace(/^\s+|\s+$/gm,'') == ""){
+        message += "Invalid username\n";
+    }
+    if(password.length < 8){
+        message += "Invalid password\n";
+    }
+}
 function AlertMistakes(message)
 {
     alert(message);
