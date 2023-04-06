@@ -17,6 +17,7 @@
 </head>
 <body>
     <navbar class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end align-items-center">
+        <div class="nav-item"> SEND A MESSAGE</div>
         <div class="container w-25 d-flex justify-content-end text-justify">
             <li class="nav-item flex-fill text-middle"><a href="login.php" class="nav-link">Log-in</a></li>
             <li class="nav-item flex-fill text-middle"><a href="register.php" class="nav-link">Register</a></li>

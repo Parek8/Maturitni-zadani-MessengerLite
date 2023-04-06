@@ -2,7 +2,7 @@
 include("connection.php");
     if(FindUser())
     {
-        header("Location: send-a-message.php");
+        header("Location: book-of-faces.php");
     }
     else
     {
