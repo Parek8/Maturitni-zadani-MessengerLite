@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 $connect = new mysqli("localhost", "management", "management123", "maturita");
 
 if($connect->connect_errno || !$connect || $connect->connect_errno != 0 || $connect->connect_error)
@@ -12,6 +10,7 @@ if($connect->connect_errno || !$connect || $connect->connect_errno != 0 || $conn
 function CreateNewDatabase()
 {
     $createQuery = "CREATE DATABASE IF NOT EXISTS maturita;
+
                     USE maturita;
                     
                     CREATE TABLE IF NOT EXISTS users(
@@ -28,13 +27,30 @@ function CreateNewDatabase()
                     );
 
                     CREATE TABLE IF NOT EXISTS message_history(
-                    id INT PRIMARY KEY AUTO_INCREMENT,
-                    content VARCHAR(1024) NOT NULL,
-                    sender_id INT NOT NULL,
-                    receiver_id INT NOT NULL,
-                    FOREIGN KEY (sender_id) REFERENCES users(id),
-                    FOREIGN KEY (receiver_id) REFERENCES users(id)
-);";
+                        id INT PRIMARY KEY AUTO_INCREMENT,
+                        content VARCHAR(1024) NOT NULL,
+                        sender_id INT NOT NULL,
+                        receiver_id INT NOT NULL,
+                        FOREIGN KEY (sender_id) REFERENCES users(id),
+                        FOREIGN KEY (receiver_id) REFERENCES users(id)      
+                    );
+                    
+                    CREATE TABLE IF NOT EXISTS friends(
+                        id INT PRIMARY KEY AUTO_INCREMENT,
+                        sender_id INT NOT NULL,
+                        reciever_id INT NOT NULL,
+                        FOREIGN KEY(sender_id) REFERENCES users(id),
+                        FOREIGN KEY(reciever_id) REFERENCES users(id)
+                    );
+                    
+                    CREATE TABLE IF NOT EXISTS friend_requests(
+                        id INT PRIMARY KEY AUTO_INCREMENT,
+                        sender_id INT NOT NULL,
+                        reciever_id INT NOT NULL,
+                        FOREIGN KEY(sender_id) REFERENCES users(id),
+                        FOREIGN KEY(reciever_id) REFERENCES users(id)
+                    );";
+
     // $connect->query($createQuery);
     // alert("No problem!");
 }

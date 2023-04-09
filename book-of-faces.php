@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,20 +11,32 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-end">
+        <div class="col">
+            <?php
+            if(is_null($_SESSION["username"]) || empty($_SESSION["username"]))
+            {
+                echo "NOT LOGGED IN!";
+            }
+            else
+            {
+                echo  "Logged in as: " . $_SESSION["username"];
+            }
+            ?>
+        </div>
+        <h3 class="align-center col">Book Of Faces</h3>
+        <div class="">
             <form class="form-inline my-2 my-lg-0 float-right" method="POST">
                 <input class="form-control" type="search" placeholder="Search" aria-label="Search" id="search-bar" name="search-bar">
                 <input type="submit" id="search-for-users" hidden>
             </form>
         </div>
     </nav>
-        <div id="results">
-            
+    <div id="results">
+        
         </div>
-
-
-    <script
+        
+        <script
         src="https://code.jquery.com/jquery-3.6.3.min.js"
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
         crossorigin="anonymous">
@@ -32,9 +47,17 @@
                                                     $.post("return-users.php", {searchTerm: searchTerm},
                                                     function(returnHTML) {
                                                         $("#results").html(returnHTML);
-                                                    })});
+                                                    })
+
+                                                    $("[type='addFriend']").click(function(){
+                                                        alert($('[type="addFriend"]').attr("name"));
+                                                    });
+
+                                                });
+       
 
     </script>
+
     
 </body>
 </html>

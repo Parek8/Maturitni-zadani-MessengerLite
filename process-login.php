@@ -1,5 +1,6 @@
 <?php
 include("connection.php");
+session_start();
     if(FindUser())
     {
         header("Location: book-of-faces.php");
@@ -26,6 +27,7 @@ function FindUser()
         {
             $userExists = true;
             echo "You logged in successfully!";
+            $_SESSION["username"] = $username;
         }
     }
     return $userExists;
