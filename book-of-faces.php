@@ -14,9 +14,10 @@ session_start();
     <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-end">
         <div class="col">
             <?php
-            if(is_null($_SESSION["username"]) || empty($_SESSION["username"]))
+            if(!isset($_SESSION["username"]))
             {
                 echo "NOT LOGGED IN!";
+                echo "<span>Login</span>";
             }
             else
             {
@@ -35,7 +36,7 @@ session_start();
     <div id="results">
         
         </div>
-        
+        <div id="test"></div>
         <script
         src="https://code.jquery.com/jquery-3.6.3.min.js"
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
@@ -48,11 +49,6 @@ session_start();
                                                     function(returnHTML) {
                                                         $("#results").html(returnHTML);
                                                     })
-
-                                                    $("[type='addFriend']").click(function(){
-                                                        alert($('[type="addFriend"]').attr("name"));
-                                                    });
-
                                                 });
        
 

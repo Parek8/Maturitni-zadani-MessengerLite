@@ -11,9 +11,16 @@
     {
         echo    '<div class=" w-25 bg-light h-100 d-flex align-items-center" style="position: relative; left: 100%; transform: TranslateX(-100%);" name='.$result["id"].'>
                     <h5 class="flex-grow-1 mx-4">'.$result["username"].'</h5>
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="addFriend">Add Friend</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="addFriend" name="'.$result["id"].'">Add Friend</button>
                     <button class="btn btn-outline-primary my-2 my-sm-0" type="message">Message</button>
                 </div>';
     }
     echo '<script src="script.js"></script>';
+    echo '<script>
+        $("[type=\'addFriend\']").bind("click", function(){
+            $.post("add-friend.php", {newFriendId: $(this).attr("name")}, function(data){
+                $("#test").html(data);
+            });
+        });
+        </script>'
 ?>

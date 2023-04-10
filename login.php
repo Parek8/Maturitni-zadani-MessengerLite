@@ -20,6 +20,8 @@ session_start();
 
             <input type="password" name="password" placeholder="Password: " class="w-75"><br>
 
+            <a href="register.php">Not registered? Register here!</a>
+
             <input type="submit" value="Log in" id="submit"  class="bg-warning rounded mb-3" style="border: none">
         </form>
     </div>

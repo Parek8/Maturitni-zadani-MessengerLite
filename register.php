@@ -36,6 +36,7 @@ session_start();
             <input type="text" name="description" placeholder="Describe your profile: " class="w-75"><br>
 
             <span>*<span style="color: red;"> Required</span></span>
+            <a href="login.php">Already have an account? Login here!</a>
 
             <input type="submit" value="Create an account" id="submit"  class="bg-warning rounded mb-3" style="border: none">
         </form>
