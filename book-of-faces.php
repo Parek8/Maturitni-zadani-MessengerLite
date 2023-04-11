@@ -16,8 +16,8 @@ session_start();
             <?php
             if(!isset($_SESSION["username"]))
             {
-                echo "NOT LOGGED IN!";
-                echo "<span>Login</span>";
+                echo "NOT LOGGED IN!   ";
+                echo "<a href='login.php'>Login here!</a>";
             }
             else
             {
@@ -33,15 +33,10 @@ session_start();
             </form>
         </div>
     </nav>
-    <div id="results">
-        
-        </div>
-        <div id="test"></div>
-        <script
-        src="https://code.jquery.com/jquery-3.6.3.min.js"
-        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
-        crossorigin="anonymous">
-    </script>
+    <div id="results"> </div>
+
+    <div id="notifications"></div>
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script>
         $("#search-bar").bind('input', function(){
                                                     let searchTerm = $("#search-bar").val();
