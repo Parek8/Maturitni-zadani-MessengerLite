@@ -25,14 +25,17 @@
     echo '<script src="script.js"></script>';
     echo '<script>
         $("[type=\'addFriend\']").bind("click", function(){
-            $.post("add-friend.php", {newFriendId: $(this).attr("name"), type: "sendFriendRequest"}, function(data){
-                $("#test").html(data);
-            });
+            $.post("add-friend.php", {newFriendId: $(this).attr("name"), type: "sendFriendRequest"}, function(data){});
         });
 
         $("[type=\'acceptFriendRequest\']").bind("click", function(){
-            $.post("add-friend.php", {newFriendId: $(this).attr("name"), type: "acceptFriendRequest", myId: '.$myId["id"].' }, function(data){
-                $("#test").html(data);
+            $.post("add-friend.php", {newFriendId: $(this).attr("name"), type: "acceptFriendRequest", myId: '.$myId["id"].' }, function(data){});
+        });
+
+        $("[type="message"]").bind("click", function()
+        {
+            $.post("send-a-message.php"), function(data) {
+                $(".test").html(data);
             });
         });
         </script>';

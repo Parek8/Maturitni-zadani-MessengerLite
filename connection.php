@@ -49,6 +49,16 @@ function CreateNewDatabase()
                         reciever_id INT NOT NULL,
                         FOREIGN KEY(sender_id) REFERENCES users(id),
                         FOREIGN KEY(reciever_id) REFERENCES users(id)
+                    );
+                    
+                    CREATE TABLE IF NOT EXISTS notifications(
+                        id INT PRIMARY KEY AUTO_INCREMENT,
+                        type ENUM('Friend Request', 'New Post', 'Remove Friend', 'Message') NOT NULL,
+                        content VARCHAR(512) NOT NULL,
+                        sender_id INT NOT NULL,
+                        reciever_id INT NOT NULL,
+                        FOREIGN KEY(sender_id) REFERENCES users(id),
+                        FOREIGN KEY(reciever_id) REFERENCES users(id)
                     );";
 
     // $connect->query($createQuery);

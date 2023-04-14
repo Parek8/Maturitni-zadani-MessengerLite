@@ -23,11 +23,22 @@
             <li class="nav-item flex-fill text-middle"><a href="register.php" class="nav-link">Register</a></li>
         </div>
     </navbar>
-        
+        <div id="test"></div>
+        <textarea name="" id="messageContent" cols="30" rows="10"></textarea><br>
+        <button name="send" value="Send Message">Send</button>
+        <div id="test"></div>
     <script
         src="https://code.jquery.com/jquery-3.6.3.min.js"
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
         crossorigin="anonymous">
+    </script>
+    <script>
+        $("[name='send']").bind("click", function(){
+            let content = document.getElementById("messageContent");
+            content.value = "";
+
+            $.post("add-notification.php", {type: 'Message', content: 'Someone sent you a message', sender_id: 8, reciever_id: 11}, function(data){});
+        });
     </script>
 </body>
 </html>

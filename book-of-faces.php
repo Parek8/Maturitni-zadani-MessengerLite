@@ -38,13 +38,15 @@ session_start();
     <div id="notifications"></div>
         <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script>
-        $("#search-bar").bind('input', function(){
+        function FunctionToBind()
+        {
                                                     let searchTerm = $("#search-bar").val();
                                                     $.post("return-users.php", {searchTerm: searchTerm},
                                                     function(returnHTML) {
                                                         $("#results").html(returnHTML);
                                                     })
-                                                });
+        }
+        $("#search-bar").bind('input', FunctionToBind);
        
 
     </script>
