@@ -27,18 +27,26 @@
         <textarea name="" id="messageContent" cols="30" rows="10"></textarea><br>
         <button name="send" value="Send Message">Send</button>
         <div id="test"></div>
+        <?php
+            echo '<div> THE ID IS: '.$_GET['id'].'</div>';
+
+        ?>
     <script
         src="https://code.jquery.com/jquery-3.6.3.min.js"
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
         crossorigin="anonymous">
     </script>
     <script>
+        let delay = 500;
         $("[name='send']").bind("click", function(){
             let content = document.getElementById("messageContent");
             content.value = "";
 
             $.post("add-notification.php", {type: 'Message', content: 'Someone sent you a message', sender_id: 8, reciever_id: 11}, function(data){});
         });
+        setInterval(() => {
+            // $.post return notifications
+        }, delay);
     </script>
 </body>
 </html>

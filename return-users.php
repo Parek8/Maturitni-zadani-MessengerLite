@@ -9,9 +9,10 @@
 
     $findMyIdQuery = "SELECT id FROM users WHERE username='".$_SESSION['username']."'";
     $myId = ($connect->query($findMyIdQuery)->fetch_assoc());
-
+    $tmpFriendId = -1;
     while($result = $results->fetch_assoc())
     {
+        $tmpFriendId = $result['id'];
         echo    '<div class=" w-25 bg-light h-100 d-flex align-items-center" style="position: relative; left: 100%; transform: TranslateX(-100%);" name='.$result["id"].'>
                     <h5 class="flex-grow-1 mx-4">'.$result["username"].'</h5>';
 
@@ -32,11 +33,9 @@
             $.post("add-friend.php", {newFriendId: $(this).attr("name"), type: "acceptFriendRequest", myId: '.$myId["id"].' }, function(data){});
         });
 
-        $("[type="message"]").bind("click", function()
+        $("[type=\'message\']").bind("click", function()
         {
-            $.post("send-a-message.php"), function(data) {
-                $(".test").html(data);
-            });
+            window.location.href = "send-a-message.php?id='.$tmpFriendId.'"
         });
         </script>';
 

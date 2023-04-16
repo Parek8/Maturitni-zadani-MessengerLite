@@ -16,6 +16,7 @@ session_start();
             <?php
             if(!isset($_SESSION["username"]))
             {
+                header("Location: login.php");
                 echo "NOT LOGGED IN!   ";
                 echo "<a href='login.php'>Login here!</a>";
             }
