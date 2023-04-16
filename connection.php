@@ -6,6 +6,9 @@ if($connect->connect_errno || !$connect || $connect->connect_errno != 0 || $conn
     die("There was an error connecting to the database!\nError: " . $connect -> connect_errno);
 }
 
+$findMyIdQuery = "SELECT id FROM users WHERE username='".$_SESSION['username']."'";
+$myId = ($connect->query($findMyIdQuery)->fetch_assoc());
+
 // Solely for us to keep the MY_SQL query somewhere ^^
 function CreateNewDatabase()
 {

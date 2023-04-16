@@ -2,8 +2,7 @@
 session_start();
 include("connection.php");
 $type = $_POST['type'];
-$findMyIdQuery = "SELECT id FROM users WHERE username='".$_SESSION['username']."'";
-$myId = ($connect->query($findMyIdQuery)->fetch_assoc());
+global $myId;
 if($type == "sendFriendRequest")
 {
     global $connect;

@@ -7,8 +7,7 @@
     $selectQuery = "SELECT id, username FROM users WHERE username LIKE '%{$_POST['searchTerm']}%' AND username != '".$_SESSION['username']."'";
     $results = $connect->query($selectQuery);
 
-    $findMyIdQuery = "SELECT id FROM users WHERE username='".$_SESSION['username']."'";
-    $myId = ($connect->query($findMyIdQuery)->fetch_assoc());
+    global $myId;
     $tmpFriendId = -1;
     while($result = $results->fetch_assoc())
     {
