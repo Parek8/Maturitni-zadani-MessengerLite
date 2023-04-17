@@ -17,10 +17,12 @@
         echo    '<div class=" w-25 bg-light h-100 d-flex align-items-center" style="position: relative; left: 100%; transform: TranslateX(-100%);" name='.$result["id"].'>
                     <h5 class="flex-grow-1 mx-4">'.$result["username"].'</h5>';
 
-                if(!FriendRequestSent($result["id"]))
+                if(!FriendRequestSent($result["id"]) && !FriendRequestPending($result["id"]))
                    echo '<button class="btn btn-outline-warning my-2 my-sm-0" type="addFriend" name="'.$result["id"].'">Add Friend</button></div>';
                 else if(FriendRequestSent($result["id"]) && !AreFriends($result['id']))
                    echo '<button class="btn btn-outline-success my-2 my-sm-0" type="acceptFriendRequest" name="'.$result["id"].'">Accept Friend Request</button></div>';
+                   else if(!FriendRequestSent($result["id"]) && FriendRequestPending($result["id"]))
+                   echo '<button class="btn btn-outline-success my-2 my-sm-0" type="" name="'.$result["id"].'">Waiting for Accepting</button></div>';
                 else
                      echo '<button class="btn btn-outline-primary my-2 my-sm-0" type="message">Message</button></div>';
     }
@@ -57,13 +59,24 @@
         global $connect;
         global $myId;
 
-        $friendsQuery = "SELECT id FROM friends WHERE (sender_id = ".$myId['id']." AND reciever_id = ".$reciever_id.") OR (reciever_id = ".$myId['id']." AND sender_id = ".$reciever_id.")";
+        $friendsQuery = "SELECT id FROM friends WHERE (sender_id = ".$myId['id']." AND reciever_id = ".$reciever_id.") OR (reciever_id = ".$myId['id']." AND sender_id = ".$reciever_id.");";
         $results = ($connect->query($friendsQuery))->fetch_assoc();
 
         if(is_null($results))
             return false;
         else
             return true;
-
+    }
+    function FriendRequestPending($sender_id)
+    {
+        global $connect;
+        global $myId;
+        
+        $friendsQuery = "SELECT id FROM friend_requests WHERE sender_id = ".$myId['id']." AND reciever_id = ".$sender_id."";
+        $results = ($connect->query($friendsQuery))->fetch_assoc();
+        if(is_null($results))
+            return false;
+        else
+            return true;
     }
 ?>
