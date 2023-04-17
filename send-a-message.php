@@ -56,7 +56,7 @@ include("connection.php");
         let friendId = $("#hidden-input-friendId").val();
         let friendName = $("#hidden-input-friendName").val();
         setInterval(() => {
-            $.post("return-notifications.php", {}, function(data) {
+            $.post("return-notifications.php", {friendId: friendId}, function(data) {
                 $("#messages").html(data);
             });
         }, delay);
