@@ -1,8 +1,17 @@
 <?php
 session_start();
 include("connection.php");
-
-$notificationQuery = 'INSERT INTO notifications(type, content, sender_id, reciever_id) VALUES("'.$_POST["type"].'", "'.$_POST["content"].'", '.$_POST['sender_id'].', '.$_POST['reciever_id'].');';
 global $connect;
-$connect->query($notificationQuery);
+global $myId;
+$friendId = $_POST["friendId"];
+if($_POST['method'] == "Notification")
+{
+    $notificationQuery = 'INSERT INTO notifications(type, content, sender_id, reciever_id) VALUES("'.$_POST["type"].'", "'.$_POST["content"].'", '.$myId["id"].', '.$friendId.');';
+    $connect->query($notificationQuery);
+}
+if($_POST['method'] == "Message")
+{
+    $messageQuery = 'INSERT INTO message_history(content, sender_id, receiver_id, sent_date) VALUES("'.$_POST["content"].'", '.$myId["id"].', '.$friendId.', now());';
+    $connect->query($messageQuery);
+}
 ?>

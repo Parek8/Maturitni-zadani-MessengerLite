@@ -4,14 +4,16 @@
 
     global $connect;
     
-    $selectQuery = "SELECT id, username FROM users WHERE username LIKE '%{$_POST['searchTerm']}%' AND username != '".$_SESSION['username']."'";
+    $selectQuery = "SELECT id, username FROM users WHERE username LIKE '%{$_POST['searchTerm']}%' AND username != '".$_SESSION['username']."' LIMIT 5";
     $results = $connect->query($selectQuery);
 
     global $myId;
     $tmpFriendId = -1;
+    $tmpFriendName = "Niglet";
     while($result = $results->fetch_assoc())
     {
         $tmpFriendId = $result['id'];
+        $tmpFriendName = $result['username'];
         echo    '<div class=" w-25 bg-light h-100 d-flex align-items-center" style="position: relative; left: 100%; transform: TranslateX(-100%);" name='.$result["id"].'>
                     <h5 class="flex-grow-1 mx-4">'.$result["username"].'</h5>';
 
@@ -34,7 +36,7 @@
 
         $("[type=\'message\']").bind("click", function()
         {
-            window.location.href = "send-a-message.php?id='.$tmpFriendId.'"
+            window.location.href = "send-a-message.php?id='.$tmpFriendId.'&name='.$tmpFriendName.'"
         });
         </script>';
 

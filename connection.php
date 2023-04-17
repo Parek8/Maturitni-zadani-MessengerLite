@@ -28,12 +28,13 @@ function CreateNewDatabase()
                         description TEXT,
                         create_date DATETIME NOT NULL
                     );
-
+                    
                     CREATE TABLE IF NOT EXISTS message_history(
                         id INT PRIMARY KEY AUTO_INCREMENT,
                         content VARCHAR(1024) NOT NULL,
                         sender_id INT NOT NULL,
                         receiver_id INT NOT NULL,
+    					sent_date DATETIME NOT NULL,
                         FOREIGN KEY (sender_id) REFERENCES users(id),
                         FOREIGN KEY (receiver_id) REFERENCES users(id)      
                     );
