@@ -10,6 +10,7 @@
     global $myId;
     $tmpFriendId = -1;
     $tmpFriendName = "Niglet";
+    $scriptString = '<script>';
     while($result = $results->fetch_assoc())
     {
         $tmpFriendId = $result['id'];
@@ -17,32 +18,41 @@
         echo    '<div class=" w-25 bg-light h-100 d-flex align-items-center" style="position: relative; left: 100%; transform: TranslateX(-100%);" name='.$result["id"].'>
                     <h5 class="flex-grow-1 mx-4">'.$result["username"].'</h5>';
 
-                if(!FriendRequestSent($result["id"]) && !FriendRequestPending($result["id"]))
-                   echo '<button class="btn btn-outline-warning my-2 my-sm-0" type="addFriend" name="'.$result["id"].'">Add Friend</button></div>';
-                else if(FriendRequestSent($result["id"]) && !AreFriends($result['id']))
-                   echo '<button class="btn btn-outline-success my-2 my-sm-0" type="acceptFriendRequest" name="'.$result["id"].'">Accept Friend Request</button></div>';
-                   else if(!FriendRequestSent($result["id"]) && FriendRequestPending($result["id"]))
-                   echo '<button class="btn btn-outline-success my-2 my-sm-0" type="" name="'.$result["id"].'">Waiting for Accepting</button></div>';
-                else
-                     echo '<button class="btn btn-outline-primary my-2 my-sm-0" type="message">Message</button></div>';
+                    if(AreFriends($result['id']))
+                    {
+                        echo '<button class="btn btn-outline-primary my-2 my-sm-0" type="message">Message</button></div>';
+                        $scriptString .= '
+                                            $("[type=\'message\']").bind("click", function()
+                                            {
+                                                window.location.href = "send-a-message.php?id='.$tmpFriendId.'&name='.$tmpFriendName.'"
+                                            });';
+                        
+                    }
+                    else if(GotFriendRequest($result["id"]))
+                    {
+                        echo '<button class="btn btn-outline-success my-2 my-sm-0" type="acceptFriendRequest" name="'.$result["id"].'">Accept Friend Request</button></div>';
+                        $scriptString .= '
+                                            $("[type=\'acceptFriendRequest\']").bind("click", function(){
+                                                $.post("add-friend.php", {newFriendId: $(this).attr("name"), type: "acceptFriendRequest", myId: '.$myId["id"].' }, function(data){});
+                                            });';
+                    }
+                    else if(FriendRequestPending($result["id"]))
+                    {
+                        echo '<button class="btn btn-outline-success my-2 my-sm-0" type="" name="'.$result["id"].'">Waiting for Accepting</button></div>';
+                    }
+                    else
+                    {
+                        echo '<button class="btn btn-outline-warning my-2 my-sm-0" type="addFriend" name="'.$result["id"].'">Add Friend</button></div>';
+                        $scriptString .= '
+                                            $("[type=\'addFriend\']").bind("click", function(){
+                                                $.post("add-friend.php", {newFriendId: $(this).attr("name"), type: "sendFriendRequest"}, function(data){});
+                                            });';
+                    }
     }
     echo '<script src="script.js"></script>';
-    echo '<script>
-        $("[type=\'addFriend\']").bind("click", function(){
-            $.post("add-friend.php", {newFriendId: $(this).attr("name"), type: "sendFriendRequest"}, function(data){});
-        });
+    echo $scriptString . '</script>';
 
-        $("[type=\'acceptFriendRequest\']").bind("click", function(){
-            $.post("add-friend.php", {newFriendId: $(this).attr("name"), type: "acceptFriendRequest", myId: '.$myId["id"].' }, function(data){});
-        });
-
-        $("[type=\'message\']").bind("click", function()
-        {
-            window.location.href = "send-a-message.php?id='.$tmpFriendId.'&name='.$tmpFriendName.'"
-        });
-        </script>';
-
-    function FriendRequestSent($sender_id)
+    function GotFriendRequest($sender_id)
     {
         global $connect;
         global $myId;

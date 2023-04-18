@@ -16,13 +16,13 @@ else if($type == "acceptFriendRequest")
     global $connect;
     global $myId;
     
-    $findRequests = "SELECT id FROM friend_requests WHERE reciever_id = ".$_POST["myId"]." AND sender_id = ".$_POST["newFriendId"]."";
+    $findRequests = "SELECT * FROM friend_requests WHERE reciever_id = ".$_POST["myId"]." AND sender_id = ".$_POST["newFriendId"]."";
     $results = $connect->query($findRequests);
     while($result = $results->fetch_assoc())
     {
-        $addFriendQuery = "INSERT INTO friends(sender_id, reciever_id) VALUES(".$_POST["myId"].",".$_POST["newFriendId"].")";
+        $addFriendQuery = "INSERT INTO friends(sender_id, reciever_id) VALUES(".$_POST["myId"].",".$_POST["newFriendId"].");";
+        $deleteQuery = "DELETE FROM friend_requests WHERE id = ".$result['id']."";
         $connect->query($addFriendQuery);
     }
 }
-
 ?>

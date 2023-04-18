@@ -56,7 +56,7 @@ include("connection.php");
         let friendId = $("#hidden-input-friendId").val();
         let friendName = $("#hidden-input-friendName").val();
         setInterval(() => {
-            $.post("return-notifications.php", {friendId: friendId}, function(data) {
+            $.post("process-messages-and-notifications.php", {function: "ReturnMessages", friendId: friendId}, function(data) {
                 $("#messages").html(data);
             });
         }, delay);
@@ -65,8 +65,8 @@ include("connection.php");
                let content = document.getElementById("messageContent");
             if(content.value != null && content.value.replace(/^\s+|\s+$/gm,'') != ""){
                 
-                $.post("add-notification.php", {type: "Message", content: friendName+" has sent you a message!", friendId: friendId, method: "Notification"}, function(data){});
-                $.post("add-notification.php", {type: null, content: content.value, friendId: friendId, method: "Message"}, function(data){});
+                $.post("process-messages-and-notifications.php", {function: 'AddNotification', type: "Message", content: friendName+" has sent you a message!", friendId: friendId, method: "Notification"}, function(data){});
+                $.post("process-messages-and-notifications.php", {function: 'AddNotification', type: null, content: content.value, friendId: friendId, method: "Message"}, function(data){});
             }
         });
     </script>

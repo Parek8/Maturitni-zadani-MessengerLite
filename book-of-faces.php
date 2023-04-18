@@ -41,11 +41,11 @@ session_start();
     <script>
         function FunctionToBind()
         {
-                                                    let searchTerm = $("#search-bar").val();
-                                                    $.post("return-users.php", {searchTerm: searchTerm},
-                                                    function(returnHTML) {
-                                                        $("#results").html(returnHTML);
-                                                    })
+                let searchTerm = $("#search-bar").val();
+                $.post("return-users.php", {searchTerm: searchTerm},
+                function(returnHTML) {
+                    $("#results").html(returnHTML);
+                })
         }
         $("#search-bar").bind('input', FunctionToBind);
        
