@@ -12,11 +12,11 @@ if($_POST['function'] == "ReturnMessages")
     {
         if($result["sender_id"] == $myId["id"])
         {
-            echo '<span style="float: right; margin-right: 1vw; color: green;">YOU: '.$result["content"].'</span><br>';
+            echo '<div style="justify-content: right; display: flex; text-align: left;width: 25vw; margin-right: 1vw;float: right; color: green;"><p style="width: auto; background-color: white; padding: 10px;  border-radius: 10px; border: 1px solid white">YOU: '.$result["content"].'<p></div><br>';
         }
         else
         {
-            echo '<span style="float: left; margin-left: 1vw; color: red;">THEM: '.$result["content"].'</span><br>';
+            echo '<div style="justify-content: left; display: flex; text-align: left;width: 25vw; margin-left: 1vw;float: left; color: green;"><p style="width: auto; background-color: white; padding: 10px;  border-radius: 10px; border: 1px solid white">THEM: '.$result["content"].'<p></div><br>';
         }
     }
 }

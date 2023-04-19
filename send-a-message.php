@@ -34,12 +34,22 @@ include("connection.php");
             }?>
         </div>
     </navbar>
-    <div style="width: 50vw; height: 90vh; background-color: grey; float: right; position: relative; display: flex; flex-direction: column; justify-content: center; text-align: center;">
+    <div style="
+    width: 50vw;
+    height: 90vh;
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+    margin-top: 5px;
+    ">
     <h3 style="position: absolute; transform: translate(-50%, -50%); top: 3%; left: 50%;"><?php echo $_GET['name'];?></h3>
             <section id="messages"></section>
-        <div style="display: flex; background-color: grey; justify-content: center; align-items: end; margin-top: 83vh; position: absolute;">
-            <textarea placeholder="Type here: " style="resize: none; height: 3.5vh; width: 45vw;" id="messageContent" cols="30" rows="10"></textarea>
-            <button name="send" value="Send Message" style="height: 3.5vh; width: 10%;">Send</button>
+        <div style="display: flex; background-color: grey; justify-content: center; align-items: end; width: 50vw;; margin-top: 83vh; position: absolute;">
+            <textarea placeholder="Type here: " style="resize: none; height: 4vh; width: 40vw; margin-right: 10px; border: 1px solid white; border-radius: 10px; padding: 5px; text-align: left;" id="messageContent" cols="30" rows="10"></textarea>
+            <button name="send" value="Send Message" style="height: 4vh; width: 10%; border: 1px solid white; border-radius: 10px; padding: 5px;">Send</button>
         </div>
     </div>
 
