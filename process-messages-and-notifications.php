@@ -6,7 +6,7 @@ global $connect;
 
 if($_POST['function'] == "ReturnMessages")
 {
-    $selectQuery = "SELECT * FROM (SELECT * FROM message_history WHERE (sender_id = ".$myId['id']." AND reciever_id = ".$_POST['friendId'].") OR (reciever_id = ".$myId['id']." AND sender_id = ".$_POST['friendId'].") ORDER BY sent_date DESC LIMIT 20) as t ORDER BY sent_date ASC";
+    $selectQuery = "SELECT * FROM (SELECT * FROM message_history WHERE (sender_id = ".$myId['id']." AND reciever_id = ".$_POST['friendId'].") OR (reciever_id = ".$myId['id']." AND sender_id = ".$_POST['friendId'].") ORDER BY sent_date DESC) as t ORDER BY sent_date ASC";
     $results = $connect->query($selectQuery);
     while($result = $results->fetch_assoc())
     {
