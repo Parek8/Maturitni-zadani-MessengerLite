@@ -24,7 +24,7 @@ function AddToDatabase()
     global $answer;
     global $description;
     global $connect;
-
+    $password = hash("sha256", $password);
     $insertQuery = "INSERT INTO users(first_name, last_name, username, pass, email, question, answer, description, create_date) VALUES(\"$first_name\", \"$last_name\", \"$username\", \"$password\", \"$email\", \"$question\", \"$answer\", \"$description\", now())";
     echo $insertQuery;   
     $connect->query($insertQuery);

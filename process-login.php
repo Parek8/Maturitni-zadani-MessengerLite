@@ -15,7 +15,7 @@ function FindUser()
     $userExists = false;
     global $connect;
     $username = $_POST["username"];
-    $password = $_POST["password"];
+    $password = hash("sha256",$_POST["password"]);
 
     $selectQuery = "SELECT * FROM users WHERE username='$username' AND pass='$password'";
 
