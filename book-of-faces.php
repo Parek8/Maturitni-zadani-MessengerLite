@@ -21,7 +21,7 @@ session_start();
             {
                 header("Location: Login&Registration/login.php");
                 echo "NOT LOGGED IN!   ";
-                echo "<a href='login.php'>Login here!</a>";
+                echo "<a href='Login&Registration/login.php'>Login here!</a>";
             }
             else
             {
@@ -39,7 +39,7 @@ session_start();
             </form>
         </div>
     </nav>
-    <div id="results"> </div>
+    <div id="results" style="position: absolute;left: 100%; transform: TranslateX(-100%); "></div>
     <div style="width: 98vw; height: 86vh; position: absolute; display: flex;">
         <div id="friend" style="width: 10%; height: 25%; background-color: red; position: relative;">
         </div>
@@ -52,9 +52,17 @@ session_start();
                 let searchTerm = $("#search-bar").val();
                 $.post("Databussy/return-users.php", {searchTerm: searchTerm},
                 function(returnHTML) {
+                    if(searchTerm != ""){
+
                     $("#results").html(returnHTML);
+                    }
                 })
         }
+        $(document).click(function(event) {
+            if (!$(event.target).closest('.search-result').length) {
+                    $('.search-result').remove();
+                } 
+        });
         setInterval(() => {
             $.post("Databussy/return-friends.php", {method: "ReturnFriends"}, function(data){
                 console.log(data);

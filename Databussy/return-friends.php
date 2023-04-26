@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include("connection.php");
 global $connect;
 $selectQuery = "SELECT id, username FROM users WHERE username != '".$_SESSION['username']."'";

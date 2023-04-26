@@ -31,9 +31,9 @@ include("Databussy/connection.php");
             include 'Databussy/return-notifications.php';
             if(!isset($_SESSION["username"]))
             {
-                header("Location: login.php");
+                header("Location: Login&Registration\login.php");
                 echo "NOT LOGGED IN!   ";
-                echo "<a href='login.php'>Login here!</a>";
+                echo "<a href='Login&Registration\login.php'>Login here!</a>";
             }
             else
             {
@@ -51,7 +51,7 @@ include("Databussy/connection.php");
             </form>
         </div>
     </navbar>
-    <div id="results" stlye="position: relative;"></div>
+    <div id="results" style="position: absolute;left: 100%; transform: TranslateX(-100%); "></div>
     <div style="display: inline-flex; width: 100vw; height:90vh; flex-direction: row; justify-content: center;">
         <div style="width: 70vw; height: 90vh; margin-top: 5px; display: flex; justify-content: center;">
             <div style=" display: flex; flex-direction: column;width: 20vw;height: 90vh; background-color: blue; ">
@@ -69,10 +69,11 @@ include("Databussy/connection.php");
             justify-content: center;
             text-align: center;
             margin: auto;">
-            <i style="position: absolute; transform: translate(-50%, -50%); top: 6%; left: 50%; font-size: 2rem"><?php echo $_GET['name'];?></i>
+            <i style=" font-size: 2rem"><?php echo $_GET['name'];?></i>
                 <section style="
             width: 50vw;
             height: 80vh;
+            margin-top: 10%;
             margin-bottom: 50px;
             overflow: auto;
             box-sizing: border-box;" 
@@ -129,6 +130,12 @@ include("Databussy/connection.php");
                     $("#results").html(returnHTML);
                 })
         }
+        
+        $(document).click(function(event) {
+            if (!$(event.target).closest('.search-result').length) {
+                    $('.search-result').remove();
+                } 
+        });
         $("#search-bar").bind('input', FunctionToBind);
     </script>
     

@@ -15,7 +15,7 @@
     {
         $tmpFriendId = $result['id'];
         $tmpFriendName = $result['username'];
-        echo  '<div class=" w-25 bg-light h-100 d-flex align-items-center" style="position: relative; left: 100%; transform: TranslateX(-100%);" name='.$result["id"].'>
+        echo  '<div class=" bg-light h-100 d-flex align-items-center search-result" style="position: relative; width: 25vw;" name='.$result["id"].'>
                     <h5 class="flex-grow-1 mx-4">'.$result["username"].'</h5>';
 
                     if(AreFriends($result['id']))
@@ -30,7 +30,7 @@
                     }
                     else if(GotFriendRequest($result["id"]))
                     {
-                        echo '<button class="btn btn-outline-success my-2 my-sm-0" type="acceptFriendRequest" name="'.$result["id"].'">Accept Friend Request</button></div>';
+                        echo '<button class="btn btn-outline-success my-2 my-sm-0" style="float: right;display: inline-block;"type="acceptFriendRequest" name="'.$result["id"].'">Accept Friend Request</button></div>';
                         $scriptString .= '
                                             $("[type=\'acceptFriendRequest\']").bind("click", function(){
                                                 $.post("Databussy/add-friend.php", {newFriendId: $(this).attr("name"), type: "acceptFriendRequest", myId: '.$myId["id"].' }, function(data){});
@@ -38,11 +38,11 @@
                     }
                     else if(FriendRequestPending($result["id"]))
                     {
-                        echo '<button class="btn btn-outline-success my-2 my-sm-0" type="" name="'.$result["id"].'">Waiting for Accepting</button></div>';
+                        echo '<button class="btn btn-outline-success my-2 my-sm-0" style="float: right;display: inline-block;" type="" name="'.$result["id"].'">Waiting for Accepting</button></div>';
                     }
                     else
                     {
-                        echo '<button class="btn btn-outline-warning my-2 my-sm-0" type="addFriend" name="'.$result["id"].'">Add Friend</button></div>';
+                        echo '<button class="btn btn-outline-warning my-2 my-sm-0"style="float: right; display: inline-block;" type="addFriend" name="'.$result["id"].'">Add Friend</button></div>';
                         $scriptString .= '
                                             $("[type=\'addFriend\']").bind("click", function(){
                                                 $.post("Databussy/add-friend.php", {newFriendId: $(this).attr("name"), type: "sendFriendRequest"}, function(data){});
