@@ -25,9 +25,10 @@ include("connection.php");
     </script>
 </head>
 <body>
-    <navbar class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end align-items-center">
-        <div class="nav-item">
+    <navbar class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-left align-items-center">
+        <div class="nav-item" style="justify-content: left; display: flex;">
             <?php
+            include 'return-notifications.php';
             if(!isset($_SESSION["username"]))
             {
                 header("Location: login.php");
@@ -36,7 +37,8 @@ include("connection.php");
             }
             else
             {
-                echo  "Logged in as: " . $_SESSION["username"];
+                echo  '<p style="float: left; margin-right: 10px">Logged in as: ' . $_SESSION["username"]. '</p>';
+                echo '<p>Notifications:'.GetNumberOfNotifications().'</p>';
             }?>
         </div>
     </navbar>
@@ -44,7 +46,7 @@ include("connection.php");
         <div style="width: 70vw; height: 90vh; margin-top: 5px; display: flex; justify-content: center;">
             <div style=" display: flex; flex-direction: column;width: 20vw;height: 90vh; background-color: blue; ">
             <?php
-            include 'return-friends.php'
+            include 'return-friends.php';
             ?>
             </div>
             <div style="
@@ -74,6 +76,7 @@ include("connection.php");
     </div>
 
         <input type="hidden" id="hidden-input-friendId" value="<?php echo $_GET['id'];?>">
+        <input type="hidden" id="hidden-input-myId" value="<?php echo $_SESSION['username']?>">
     
     <?php
         echo '<script src="script.js"></script>';
@@ -85,7 +88,12 @@ include("connection.php");
         let delay = 1000;
         
         let friendId = $("#hidden-input-friendId").val();
+        let myUser = $("#hidden-input-myId").val();
         let friendName = $("#hidden-input-friendName").val();
+        $.post("return-notifications.php", { action: "deleteRecords", friendId: friendId, myUser: myUser }, function(response) {
+           console.log(response);
+           
+        });
         setInterval(() => {
             $.post("process-messages-and-notifications.php", {function: "ReturnMessages", friendId: friendId}, function(data) {
                 $("#messages").html(data);

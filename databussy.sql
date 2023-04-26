@@ -1,23 +1,4 @@
-<?php
-$connect = new mysqli("localhost", "management", "management123", "maturita");
-
-if($connect->connect_errno || !$connect || $connect->connect_errno != 0 || $connect->connect_error)
-{
-    die("There was an error connecting to the database!\nError: " . $connect -> connect_errno);
-}
-
-if(isset($_SESSION['username'])){
-    $findMyIdQuery = "SELECT id FROM users WHERE username='".$_SESSION['username']."'";
-    $myId = ($connect->query($findMyIdQuery)->fetch_assoc());
-}
-
-
-
-// Solely for us to keep the MY_SQL query somewhere ^^
-
-/*function CreateNewDatabase()
-{
-    $createQuery = "CREATE DATABASE IF NOT EXISTS maturita;
+CREATE DATABASE IF NOT EXISTS maturita;
 
                     USE maturita;
                     
@@ -68,9 +49,4 @@ if(isset($_SESSION['username'])){
                         reciever_id INT NOT NULL,
                         FOREIGN KEY(sender_id) REFERENCES users(id),
                         FOREIGN KEY(reciever_id) REFERENCES users(id)
-                    );";
-
-    // $connect->query($createQuery);
-    // alert("No problem!");
-}*/
-?>
+                    );

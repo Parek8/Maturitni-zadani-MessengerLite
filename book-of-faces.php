@@ -13,7 +13,11 @@ session_start();
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-end">
         <div class="col">
+
             <?php
+            include 'connection.php';
+            include 'return-notifications.php';
+            global $myId;
             if(!isset($_SESSION["username"]))
             {
                 header("Location: login.php");
@@ -22,7 +26,7 @@ session_start();
             }
             else
             {
-                echo  "Logged in as: " . $_SESSION["username"];
+                echo  "Logged in as: " . $_SESSION["username"]. " Notifications: ". GetNumberOfNotifications();
             }
             ?>
         </div>
