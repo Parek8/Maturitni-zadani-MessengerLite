@@ -1,7 +1,7 @@
 <!-- TODO if not logged in (session) redirect to login.php! -->
 <?php
 session_start();
-include("connection.php");
+include("Databussy/connection.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +28,7 @@ include("connection.php");
     <navbar class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-left align-items-center">
         <div class="nav-item" style="justify-content: left; display: flex;">
             <?php
-            include 'return-notifications.php';
+            include 'Databussy/return-notifications.php';
             if(!isset($_SESSION["username"]))
             {
                 header("Location: login.php");
@@ -41,12 +41,22 @@ include("connection.php");
                 echo '<p>Notifications:'.GetNumberOfNotifications().'</p>';
             }?>
         </div>
+        <li class="col nav-item" style="list-style-type: none; font-size: 1.5rem; text-align: center">
+            <a class="nav-link" href="book-of-faces.php">Book Of Faces</a>
+        </li>
+        <div class="col">
+            <form class="form-inline my-2 my-lg-0 float-right" method="POST">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search" id="search-bar" name="search-bar">
+                <input type="submit" id="search-for-users" hidden>
+            </form>
+        </div>
     </navbar>
+    <div id="results" stlye="position: relative;"></div>
     <div style="display: inline-flex; width: 100vw; height:90vh; flex-direction: row; justify-content: center;">
         <div style="width: 70vw; height: 90vh; margin-top: 5px; display: flex; justify-content: center;">
             <div style=" display: flex; flex-direction: column;width: 20vw;height: 90vh; background-color: blue; ">
             <?php
-            include 'return-friends.php';
+            include 'Databussy/return-friends.php';
             ?>
             </div>
             <div style="
@@ -59,7 +69,7 @@ include("connection.php");
             justify-content: center;
             text-align: center;
             margin: auto;">
-            <h3 style="position: absolute; transform: translate(-50%, -50%); top: 3%; left: 50%;"><?php echo $_GET['name'];?></h3>
+            <i style="position: absolute; transform: translate(-50%, -50%); top: 6%; left: 50%; font-size: 2rem"><?php echo $_GET['name'];?></i>
                 <section style="
             width: 50vw;
             height: 80vh;
@@ -89,50 +99,43 @@ include("connection.php");
         
         let friendId = $("#hidden-input-friendId").val();
         let myUser = $("#hidden-input-myId").val();
-        let friendName = $("#hidden-input-friendName").val();
-        $.post("return-notifications.php", { action: "deleteRecords", friendId: friendId, myUser: myUser }, function(response) {
-           console.log(response);
-           
-        });
+
         setInterval(() => {
-            $.post("process-messages-and-notifications.php", {function: "ReturnMessages", friendId: friendId}, function(data) {
+            $.post("Databussy/return-notifications.php", {method: "RemoveNotifications", friendId: friendId}, function(data){
+                console.log(data);
+            });
+            $.post("Databussy/process-messages-and-notifications.php", {function: "ReturnMessages", friendId: friendId}, function(data) {
                 $("#messages").html(data);
             });
             
             
         }, delay);
-        
-        var scrolled = false;
-        function updateScroll()
-        {
-            if(!scrolled)
-            {
-                var sections = document.getElementsByTagName("section");
-
-		    
-		        for (var i = 0; i < sections.length; i++) {
-			        var section = sections[i];
-			        section.style.maxHeight = section.scrollHeight + "px";
-			        section.style.overflowY = "scroll";
-		        }
-            }
-        }
-        $("section").on('scroll', function(){
-            scrolled=true;
-        });
-
-
-
            $("[name=\'send\']").bind("click", function(){
                let content = document.getElementById("messageContent");
             if(content.value != null && content.value.replace(/^\s+|\s+$/gm,'') != ""){
                 
-                $.post("process-messages-and-notifications.php", {function: 'AddNotification', type: "Message", content: friendName+" has sent you a message!", friendId: friendId, method: "Notification"}, function(data){});
-                $.post("process-messages-and-notifications.php", {function: 'AddNotification', type: null, content: content.value, friendId: friendId, method: "Message"}, function(data){});
+                $.post("Databussy/process-messages-and-notifications.php", {function: 'AddNotification', type: "Message", content: "Someone has sent you a message!", friendId: friendId, method: "Notification"}, function(data){});
+                $.post("Databussy/process-messages-and-notifications.php", {function: 'AddNotification', type: null, content: content.value, friendId: friendId, method: "Message"}, function(data){});
             }
         });
-        
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script>
+        function FunctionToBind()
+        {
+                let searchTerm = $("#search-bar").val();
+                $.post("Databussy/return-users.php", {searchTerm: searchTerm},
+                function(returnHTML) {
+                    $("#results").html(returnHTML);
+                })
+        }
+        $("#search-bar").bind('input', FunctionToBind);
     </script>
     
 </body>
+<footer  style="position: fixed; bottom: 0px">
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-end">
+    <span class="col">Made by <i>Párek8&AdamMakoun&copy </i> </span>
+    </nav>
+</footer>
 </html>

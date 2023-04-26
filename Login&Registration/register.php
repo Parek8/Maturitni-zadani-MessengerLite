@@ -63,4 +63,9 @@ session_start();
             });
     </script>
 </body>
+<footer  style="position: fixed; bottom: 0px">
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-end">
+    <span class="col">Made by <i>Párek8&AdamMakoun&copy </i> </span>
+    </nav>
+</footer>
 </html>

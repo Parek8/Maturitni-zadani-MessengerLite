@@ -10,7 +10,7 @@ session_start();
     <title>Log in!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 </head>
-<body style="background-color: #EEEEEE;">
+<body style="background-color: #EEEEEE; height: 93vh;">
 
     <h1 style="position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%);">LOGIN</h1>
 
@@ -21,8 +21,21 @@ session_start();
             <input type="password" name="password" placeholder="Password: " class="w-75"><br>
 
             <a href="register.php">Not registered? Register here!</a>
+            <?php
+            if(isset($_SESSION["forgotPassword"]))
+            {
+                if($_SESSION["forgotPassword"] == true)
+                {
+                    echo "<a href='forgot-password.php'></a>";
+                }
+                else
+                {   
+                    echo "<a href='forgot-password.php'></a>";
+                }
+            }
+            ?>
 
-            <input type="submit" value="Log in" id="submit"  class="bg-warning rounded mb-3" style="border: none">
+            <input type="submit" value="Log in" id="submit" class="bg-warning rounded mb-3" style="border: none">
         </form>
     </div>
 
@@ -33,13 +46,13 @@ session_start();
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
     crossorigin="anonymous">
     </script>
-    <script src="script.js"></script>
+    <script src="../script.js"></script>
 
     <script>
 
         $(document).ready(function(){  
                 $("#submit").click(function(e){
-                if(!Validate())
+                if(ValidateLogin())
                     e.preventDefault();
                 else
                     $(this).unbind('click').click();
@@ -47,4 +60,9 @@ session_start();
             });
     </script>
 </body>
+<footer  style="position: fixed; bottom: 0px">
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-end">
+    <span class="col">Made by <i>Párek8&AdamMakoun&copy </i> </span>
+    </nav>
+</footer>
 </html>

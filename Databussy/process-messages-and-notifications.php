@@ -12,11 +12,11 @@ if($_POST['function'] == "ReturnMessages")
     {
         if($result["sender_id"] == $myId["id"])
         {
-            echo '<div style="justify-content: right; display: flex; text-align: left;width: 25vw; margin-right: 1vw;float: right; color: green;"><p style="width: auto; background-color: white; padding: 10px;  border-radius: 10px; border: 1px solid white">YOU: '.$result["content"].'<p></div><br>';
+            echo '<div style="justify-content: right; display: flex; text-align: left;width: 25vw; margin-right: 1vw;float: right; color: green;"><p style="width: auto; background-color: white; padding: 10px;  border-radius: 10px; border: 1px solid white"><i style="font-size: 0.8rem;">YOU: </i>'.$result["content"].'<p></div><br>';
         }
         else
         {
-            echo '<div style="justify-content: left; display: flex; text-align: left;width: 25vw; margin-left: 1vw;float: left; color: green;"><p style="width: auto; background-color: white; padding: 10px;  border-radius: 10px; border: 1px solid white">THEM: '.$result["content"].'<p></div><br>';
+            echo '<div style="justify-content: left; display: flex; text-align: left;width: 25vw; margin-left: 1vw;float: left; color: green;"><p style="width: auto; background-color: white; padding: 10px;  border-radius: 10px; border: 1px solid white"><i style="font-size: 0.8rem;">THEM: </i>'.$result["content"].'<p></div><br>';
         }
     }
 }

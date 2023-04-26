@@ -1,9 +1,9 @@
 <?php
-include("connection.php");
+include("../Databussy/connection.php");
 session_start();
     if(FindUser())
     {
-        header("Location: book-of-faces.php");
+        header("Location: ../book-of-faces.php");
     }
     else
     {
@@ -28,6 +28,10 @@ function FindUser()
             $userExists = true;
             echo "You logged in successfully!";
             $_SESSION["username"] = $username;
+        }
+        else
+        {
+            $_SESSION["forgotPassword"] = true;
         }
     }
     return $userExists;
