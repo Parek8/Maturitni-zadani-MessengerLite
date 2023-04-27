@@ -1,7 +1,5 @@
 function ValidateRegister()
 {
-    let valid = true;
-
     let fname = $("[name='first_name']").val();
     let lname = $("[name='last_name']").val();
     let username = $("[name='username']").val();
@@ -39,9 +37,9 @@ function ValidateRegister()
     if(message != "" && message != null)
     {
         AlertMistakes(message);
-        valid = false;
+        return false;
     }
-    return valid;
+    return true;
 }
 function ValidateLogin()
 {
@@ -55,6 +53,10 @@ function ValidateLogin()
     if(password.length < 8){
         message += "Invalid password\n";
     }
+    if((!empty(message) || message != ""))
+        AlertMistakes(message);
+
+    return (empty(message) || message == "");
 }
 function AlertMistakes(message)
 {

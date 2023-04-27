@@ -38,7 +38,7 @@ include("Databussy/connection.php");
             else
             {
                 echo  '<p style="float: left; margin-right: 10px">Logged in as: ' . $_SESSION["username"]. '</p>';
-                echo '<p>Notifications:'.GetNumberOfNotifications().'</p>';
+                echo 'Notifications:'.GetNumberOfNotifications().'';
             }?>
         </div>
         <li class="col nav-item" style="list-style-type: none; font-size: 1.5rem; text-align: center">
@@ -102,15 +102,17 @@ include("Databussy/connection.php");
         let myUser = $("#hidden-input-myId").val();
 
         setInterval(() => {
-            $.post("Databussy/return-notifications.php", {method: "RemoveNotifications", friendId: friendId}, function(data){
-                console.log(data);
-            });
+            <?php GetNumberOfNotifications(); ?>
             $.post("Databussy/process-messages-and-notifications.php", {function: "ReturnMessages", friendId: friendId}, function(data) {
                 $("#messages").html(data);
             });
             
             
         }, delay);
+
+        $("document").ready(function(){
+            $.post("Databussy/process-messages-and-notifications.php", {function: "RemoveNotification", friendId: friendId}, function(data){});
+        });
            $("[name=\'send\']").bind("click", function(){
                let content = document.getElementById("messageContent");
             if(content.value != null && content.value.replace(/^\s+|\s+$/gm,'') != ""){

@@ -34,6 +34,7 @@
                         $scriptString .= '
                                             $("[type=\'acceptFriendRequest\']").bind("click", function(){
                                                 $.post("Databussy/add-friend.php", {newFriendId: $(this).attr("name"), type: "acceptFriendRequest", myId: '.$myId["id"].' }, function(data){});
+                                                window.location.reload();
                                             });';
                     }
                     else if(FriendRequestPending($result["id"]))
@@ -46,6 +47,7 @@
                         $scriptString .= '
                                             $("[type=\'addFriend\']").bind("click", function(){
                                                 $.post("Databussy/add-friend.php", {newFriendId: $(this).attr("name"), type: "sendFriendRequest"}, function(data){});
+                                                window.location.reload();
                                             });';
                     }
     }

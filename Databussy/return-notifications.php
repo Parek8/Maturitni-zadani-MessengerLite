@@ -4,13 +4,6 @@
 global $myId;
 global $connect;
 
-if(isset($_POST["method"])  && $_POST["method"] == "RemoveNotifications")
-{
-    global $connect;
-    global $myId;
-    $DeleteQuery = 'DELETE FROM notifications WHERE notifications.sender_id = '. $_POST["friendId"]. ' AND notifications.reciever_id = '. $myId["id"] . ' AND notifications.type = "Message"';
-    return $connect->query($DeleteQuery);
-}
 function GetNumberOfNotifications(){
     
     global $myId;

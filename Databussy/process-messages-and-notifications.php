@@ -34,4 +34,10 @@ else if($_POST['function'] == "AddNotification")
         $connect->query($messageQuery);
     }
 }
+else if($_POST['function'] == "RemoveNotification")
+{
+    $friendId = $_POST["friendId"];
+    $notificationQuery = 'DELETE FROM notifications WHERE reciever_id = ' . $myId["id"] . ' AND sender_id = ' . $friendId . ' and type = "Message" ';
+    $connect->query($notificationQuery);
+}
 ?>

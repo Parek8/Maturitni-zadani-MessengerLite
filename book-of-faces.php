@@ -43,7 +43,6 @@ session_start();
     </nav>
     <div id="results" style="position: absolute;left: 100%; transform: TranslateX(-100%);pointer-events: auto;  z-index: 10; "></div>
     <div style="width: 98vw; height: 86vh; position: absolute; display: flex; flex-wrap: wrap;">
-        
         <?php include 'Databussy\return-friends-as-elements.php';
         ?>
         

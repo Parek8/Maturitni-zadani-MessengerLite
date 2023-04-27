@@ -8,6 +8,12 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register!</title>
+    <style>
+        input
+        {
+            border: none;
+        }
+    </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 </head>
 <body style="background-color: #EEEEEE;">
@@ -49,7 +55,7 @@ session_start();
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
     crossorigin="anonymous">
     </script>
-    <script src="script.js"></script>
+    <script src="../script.js"></script>
 
     <script>
 
@@ -63,7 +69,7 @@ session_start();
             });
     </script>
 </body>
-<footer  style="position: fixed; bottom: 0px">
+<footer  style="position: fixed; bottom: 0px; width: 100vw">
 <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-end">
     <span class="col">Made by <i>Párek8&AdamMakoun&copy </i> </span>
     </nav>
