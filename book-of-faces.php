@@ -9,6 +9,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Of Faces!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="Styles\style.css">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 <body class="h-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
@@ -39,12 +41,14 @@ session_start();
             </form>
         </div>
     </nav>
-    <div id="results" style="position: absolute;left: 100%; transform: TranslateX(-100%); "></div>
-    <div style="width: 98vw; height: 86vh; position: absolute; display: flex;">
-        <div id="friend" style="width: 10%; height: 25%; background-color: red; position: relative;">
-        </div>
+    <div id="results" style="position: absolute;left: 100%; transform: TranslateX(-100%);pointer-events: auto;  z-index: 10; "></div>
+    <div style="width: 98vw; height: 86vh; position: absolute; display: flex; flex-wrap: wrap;">
+        
+        <?php include 'Databussy\return-friends-as-elements.php';
+        ?>
+        
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    
     <script>
         let delay = 1000;
         function FunctionToBind()
@@ -59,7 +63,7 @@ session_start();
                 })
         }
         $(document).click(function(event) {
-            if (!$(event.target).closest('.search-result').length) {
+            if (!$(event.target).closest("#results").length) {
                     $('.search-result').remove();
                 } 
         });

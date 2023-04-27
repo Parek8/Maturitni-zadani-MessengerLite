@@ -1,6 +1,6 @@
 <?php
-include("connection.php");
-include("variables.php");
+include("../Databussy/connection.php");
+include("../Databussy/variables.php");
 
     if(CheckUniqueness())
     {

@@ -22,12 +22,12 @@ else if($type == "acceptFriendRequest")
     $results = $connect->query($findRequests);
     while($result = $results->fetch_assoc())
     {
-        $addFriendQuery = "INSERT INTO friends(sender_id, reciever_id) VALUES(".$_POST["myId"].",".$_POST["newFriendId"].");";
-        $removeFriendRequestNotificationQueryFromDeliciousDataBussy = 'DELETE FROM notifications WHERE notifications.sender_id ='. $_POST["newFriendId"] . ' AND notifications.reciever_id = '. $myId['id'] . 'AND notifications.type = "Friend Request"';
+        $addFriendQuery = "INSERT INTO friends(sender_id, reciever_id) VALUES(".$_POST["newFriendId"].",".$_POST["myId"].");";
+        $removeFriendRequestNotificationQueryFromDeliciousDataBussy = 'DELETE FROM notifications WHERE notifications.sender_id ='. $_POST["newFriendId"] . ' AND notifications.reciever_id = '. $myId['id'] . 'AND notifications.type = "Friend Request" OR notifications.sender_id ='.  $myId['id'] . ' AND notifications.reciever_id = '.$_POST["newFriendId"] . 'AND notifications.type = "Friend Request" ';
         $deleteQuery = "DELETE FROM friend_requests WHERE id = ".$result['id']."";
         $connect->query($addFriendQuery);
         $connect->query($deleteQuery);
-        // POŘEŠIT ID, PROTOŽE NĚJAK NEFACHAJÍ...QUERY JE OK!
+        // POŘEŠIT ID, PROTOŽE NĚJAK NEFACHAJÍ...QUERY JE OK! FURT TO NEJEDE NEVIM
         $connect->query($removeFriendRequestNotificationQueryFromDeliciousDataBussy);
     }
 }
