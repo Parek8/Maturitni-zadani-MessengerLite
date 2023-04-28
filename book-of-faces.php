@@ -2,7 +2,7 @@
 session_start();
 if(!isset($_SESSION["username"]) || !isset($_SESSION["logged"]) || $_SESSION["logged"] == false)
 {
-    header("Location: ../Login&Registration/login.php");
+    header("Location: Login&Registration/login.php");
 }
 ?>
 <!DOCTYPE html>
