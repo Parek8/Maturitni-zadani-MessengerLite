@@ -20,9 +20,9 @@
 
                     if(AreFriends($result['id']))
                     {
-                        echo '<button class="btn btn-outline-primary my-2 my-sm-0" type="message">Message</button></div>';
+                        echo '<button class="btn btn-outline-primary my-2 my-sm-0" id="Message-'.$result["id"].'"type="message">Message</button></div>';
                         $scriptString .= '
-                                            $("[type=\'message\']").bind("click", function()
+                                            $("#Message-'.$result["id"].'").bind("click", function()
                                             {
                                                 window.location.href = "send-a-message.php?id='.$tmpFriendId.'&name='.$tmpFriendName.'"
                                             });';
@@ -30,9 +30,9 @@
                     }
                     else if(GotFriendRequest($result["id"]))
                     {
-                        echo '<button class="btn btn-outline-success my-2 my-sm-0" style="float: right;display: inline-block;z-index: 12;"type="acceptFriendRequest" name="'.$result["id"].'">Accept Friend Request</button></div>';
+                        echo '<button class="btn btn-outline-success my-2 my-sm-0" style="float: right;display: inline-block;z-index: 12;"type="acceptFriendRequest" id="Accept'.$result["id"].'" name="'.$result["id"].'">Accept Friend Request</button></div>';
                         $scriptString .= '
-                                            $("[type=\'acceptFriendRequest\']").bind("click", function(){
+                                            $("#Accept'.$result["id"].'").bind("click", function(){
                                                 $.post("Databussy/add-friend.php", {newFriendId: $(this).attr("name"), type: "acceptFriendRequest", myId: '.$myId["id"].' }, function(data){});
                                                 window.location.reload();
                                             });';
@@ -43,9 +43,9 @@
                     }
                     else
                     {
-                        echo '<button class="btn btn-outline-warning my-2 my-sm-0"style="float: right; display: inline-block;z-index: 12;" type="addFriend" name="'.$result["id"].'">Add Friend</button></div>';
+                        echo '<button class="btn btn-outline-warning my-2 my-sm-0"style="float: right; display: inline-block;z-index: 12;" id="Request-'.$result["id"].'" type="addFriend" name="'.$result["id"].'">Add Friend</button></div>';
                         $scriptString .= '
-                                            $("[type=\'addFriend\']").bind("click", function(){
+                                            $("#Request-'.$result["id"].'").bind("click", function(){
                                                 $.post("Databussy/add-friend.php", {newFriendId: $(this).attr("name"), type: "sendFriendRequest"}, function(data){});
                                                 window.location.reload();
                                             });';
