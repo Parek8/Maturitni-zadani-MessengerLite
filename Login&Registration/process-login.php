@@ -1,15 +1,6 @@
 <?php
 include("../Databussy/connection.php");
 session_start();
-    if(FindUser())
-    {
-        header("Location: ../book-of-faces.php");
-    }
-    else
-    {
-        header("Location: login.php");
-    }
-
 function FindUser()
 {
     $userExists = false;
@@ -21,6 +12,10 @@ function FindUser()
 
     $results = $connect->query($selectQuery);
 
+    // TADY SE VÁŽNĚ OMLOUVÁM
+    $_SESSION["forgotPassword"] = true;
+    $_SESSION["logged"] = false;
+
     while($result = $results->fetch_assoc())
     {
         if($result["email"] == $email && $result["pass"] == $password)
@@ -28,12 +23,24 @@ function FindUser()
             $userExists = true;
             echo "You logged in successfully!";
             $_SESSION["username"] = $result['username'];
+            $_SESSION["logged"] = true;
+            $_SESSION["wrongLogin"] = false;
         }
         else
         {
-            $_SESSION["forgotPassword"] = true;
+            $_SESSION["wrongLogin"] = false;
         }
     }
     return $userExists;
+}
+
+
+if(FindUser())
+{
+    header("Location: ../book-of-faces.php");
+}
+else
+{
+    header("Location: login.php");
 }
 ?>
