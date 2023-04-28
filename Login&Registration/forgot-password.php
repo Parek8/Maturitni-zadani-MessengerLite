@@ -26,7 +26,8 @@ if(!isset($_SESSION["forgotEmail"]))
 
     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" class="w-25 shadow-lg ">
         <form action="../Databussy/return-verification-question.php" method="POST" class="d-flex flex-column align-items-center mt-4" autocomplete="new-password">
-
+            <span>Question:</span>
+            <p name="question"></p>
             <input type="text" name="answer" placeholder="Answer your Question: " class="w-75" value=""><br>
 
             <input type="password" name="new_password" placeholder="New Password: " class="w-75" value=""><br>
@@ -35,7 +36,7 @@ if(!isset($_SESSION["forgotEmail"]))
 
             <a href="login.php">Missclicked? Login here!</a>
 
-            <input type="submit" value="Verify Email" id="submit" class="bg-warning rounded mb-3" style="border: none">
+            <input type="submit" value="Change Password" id="submit" class="bg-warning rounded mb-3" style="border: none">
         </form>
     </div>
 
@@ -50,7 +51,7 @@ if(!isset($_SESSION["forgotEmail"]))
 
     <script>
         $.post("../Databussy/return-verification-question.php", {function: "ReturnQuestion"}, function(question){
-            $("[name=\"answer\"]").attr("placeholder", question);
+            $("[name=\"question\"]").text(question);
         });
     </script>
 </body>
