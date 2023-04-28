@@ -43,20 +43,20 @@ function ValidateRegister()
 }
 function ValidateLogin()
 {
-    let username = $("[name='username']").val();
+    let email = $("[name='email']").val();
     let password = $("[name='password']").val();
     let message = "";
 
-    if(username.length < 8 || username.replace(/^\s+|\s+$/gm,'') == ""){
-        message += "Invalid username\n";
+    if(email.length < 8 || email.replace(/^\s+|\s+$/gm,'') == ""){
+        message += "Invalid email\n";
     }
     if(password.length < 8){
         message += "Invalid password\n";
     }
-    if((!empty(message) || message != ""))
+    if((message != ""))
         AlertMistakes(message);
 
-    return (empty(message) || message == "");
+    return (message == "");
 }
 function AlertMistakes(message)
 {

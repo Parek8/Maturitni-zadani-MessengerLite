@@ -1,5 +1,7 @@
 <?php
 session_start();
+$_SESSION["firstLogin"] = true;
+$_SESSION["logged"] = false;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,14 +28,12 @@ session_start();
 
             <input type="password" name="password" placeholder="Password: " class="w-75"><br>
 
+            <div id="forgot"></div>
             <a href="register.php">Not registered? Register here!</a>
-            <a href="forgot-password-email.php">Forgot your password? Reset it here!</a>
 
             <input type="submit" value="Log in" id="submit" class="bg-warning rounded mb-3" style="border: none">
         </form>
     </div>
-
-
 
     <script
     src="https://code.jquery.com/jquery-3.6.3.min.js"
@@ -41,13 +41,14 @@ session_start();
     crossorigin="anonymous">
     </script>
     <script src="../script.js"></script>
-
     <script>
-
         $(document).ready(function(){  
                 $("#submit").click(function(e){
-                if(ValidateLogin())
+                if(!ValidateLogin())
+                {
                     e.preventDefault();
+                    $("#forgot").html("<a href='../Login&Registration/forgot-password-email.php'>Forgor your password?</a>");
+                }
                 else
                     $(this).unbind('click').click();
                 });  
